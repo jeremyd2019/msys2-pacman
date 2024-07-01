@@ -231,6 +231,7 @@ static alpm_mountpoint_t *match_mount_point(const alpm_list_t *mount_points,
 static int calculate_removed_size(alpm_handle_t *handle,
 		const alpm_list_t *mount_points, alpm_pkg_t *pkg)
 {
+#if 0
 	size_t i;
 	alpm_filelist_t *filelist = alpm_pkg_get_files(pkg);
 
@@ -286,6 +287,7 @@ static int calculate_removed_size(alpm_handle_t *handle,
 		mp->blocks_needed -= remove_size;
 		mp->used |= USED_REMOVE;
 	}
+#endif
 
 	return 0;
 }
