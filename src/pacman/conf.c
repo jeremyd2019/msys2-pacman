@@ -865,7 +865,7 @@ static int setup_libalpm(void)
 
 	alpm_option_set_logcb(handle, cb_log, NULL);
 	alpm_option_set_dlcb(handle, cb_download, NULL);
-	alpm_option_set_eventcb(handle, cb_event, NULL);
+	alpm_option_set_eventcb(handle, cb_event, malloc(16));
 	alpm_option_set_questioncb(handle, cb_question, NULL);
 	alpm_option_set_progresscb(handle, cb_progress, NULL);
 

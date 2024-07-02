@@ -337,6 +337,15 @@ void cb_event(void *ctx, alpm_event_t *event)
 			if(config->noprogressbar) {
 				printf(_("checking available disk space...\n"));
 			}
+			if(ctx)
+				*(int64_t*)ctx = get_time_ms();
+			break;
+		case ALPM_EVENT_DISKSPACE_DONE:
+			if (ctx) {
+				printf("diskspace time %d\n", (int)(get_time_ms() - *(int64_t*)ctx));
+				fflush(stdout);
+				raise(SIGINT);
+			}
 			break;
 		case ALPM_EVENT_OPTDEP_REMOVAL:
 			{
@@ -413,7 +422,6 @@ void cb_event(void *ctx, alpm_event_t *event)
 		case ALPM_EVENT_KEYRING_DONE:
 		case ALPM_EVENT_KEY_DOWNLOAD_DONE:
 		case ALPM_EVENT_LOAD_DONE:
-		case ALPM_EVENT_DISKSPACE_DONE:
 		case ALPM_EVENT_HOOK_DONE:
 		case ALPM_EVENT_HOOK_RUN_DONE:
 			/* nothing */
